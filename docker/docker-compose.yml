@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+    clickhouse-dbg:
+        build: .
+        image: clickhouse-dbg:21.7.6.39
+        container_name: "clickhouse-dbg"
+        ports:
+          - 8123:8123
+          - 9000:9000
+          - 9009:9009
+        security_opt:
+          - apparmor:unconfined
+          - seccomp:unconfined
+        cap_add:
+          - SYS_PTRACE
+        deploy:
+          resources:
+            limits:
+              cpus: 2
+              memory: 2048M
