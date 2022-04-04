@@ -100,5 +100,14 @@ VOLUME /var/lib/clickhouse
 
 ENV CLICKHOUSE_CONFIG /etc/clickhouse-server/config.xml
 
+RUN apt-get update && apt-get install -y gdb git
+
+WORKDIR /root
+
+RUN git clone -b 2022.01.05 --depth 1 https://github.com/pwndbg/pwndbg
+RUN /bin/bash -c "pushd /root/pwndbg; \
+    ./setup.sh; \
+    popd;"
+
 ENTRYPOINT ["/entrypoint.sh"]
 
